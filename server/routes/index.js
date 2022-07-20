@@ -1,9 +1,11 @@
-const {addPlace}= require("../controllers/places");
+const {addPlace, getPlaces, updatePlace }= require("../controllers/places");
 
 const {Router} =require("express");
 
 const router=Router();
 
-router.post("/place", addPlace);
+router.route("/places").post(addPlace).get(getPlaces);
 
-module.exports= { router }
+router.put("/places/:placeId", updatePlace);
+
+module.exports= { router };

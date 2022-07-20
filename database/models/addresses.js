@@ -3,17 +3,17 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class addresses extends Model {
+  class address extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      addresses.hasOne(models.places);
+      address.hasOne(models.places);
     }
   }
-  addresses.init({
+  address.init({
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     street: DataTypes.STRING,
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     postalCode: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'addresses',
+    modelName: 'address',
   });
-  return addresses;
+  return address;
 };
