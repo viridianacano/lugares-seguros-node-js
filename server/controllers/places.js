@@ -63,30 +63,33 @@ const updatePlace= async(req, res) =>{
         });
 
         if(!place) return res.status(404).send("El lugar no se encuentra");
-        return res.send(place);
 
-        await models.places.update(
-            {
+        const address=await models.address.findOne({
+
+            where: {
+                id: place.addressId,
+            },
+        });
+
+
+        await place.update({
             name:body.name,
             description: body.description,
-        },
-        {
-           where:{
-            id:placeId,
-           },
+        });
 
-        }
-        );
+        if (address)
+        await address.update({
+            state: body.state,
+            city: body.city,
+            suburb: body.suburb,
+            street: body.street,
+            postalCode: body.postalCode,
 
-        await models.place.update({
+        });
 
-        })
-
-
-
-
-
-        return res.status(200).end(place);
+      
+        
+        return res.status(200).send(place);
     } catch (error){
 
         return res
