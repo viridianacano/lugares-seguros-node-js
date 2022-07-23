@@ -8,7 +8,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return queryInterface.addColumn("comments", "statusDelete", {
+    return queryInterface.addColumn("comments", "statusDeLete", {
       type: Sequelize.BOOLEAN,
       defaultValue: false
     });
@@ -21,6 +21,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return queryInterface.removeColumn("comments", "statusDelete");
+    return queryInterface.removeColumn("comments", "statusDeLete");
   }
 };

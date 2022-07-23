@@ -1,6 +1,6 @@
 const models= require("../../database/models");
 
-const addPlace= async(req,res) => {
+const addPlace= async(req,res) => { //modulo agregar lugares
 
     try{
         const { body }=req;
@@ -30,7 +30,7 @@ const addPlace= async(req,res) => {
     }
 };
 
-const getPlaces= async(req,res) =>{
+const getPlaces= async(req,res) =>{ 
     try{
       const places= await models.places.findAll({
       
@@ -98,4 +98,36 @@ const updatePlace= async(req, res) =>{
     }
 };
 
-module.exports= {addPlace, getPlaces, updatePlace};
+const deletePlace= async (req,res) =>{
+    try{
+      
+        const {placeId}=req.params;
+        
+
+        const place=await models.places.findOne({
+
+            where:{
+              id: placeId,
+              statusDeLete: false,
+            },
+        });
+
+        if(!place) return res.status(404).send("El lugar no se encuentra");
+
+
+        await place.update({
+            statusDeLete: true,
+        });
+
+        return res.status(200).send("Se ha eliminado el place");
+        } catch (error){
+        console.log(error);
+        return res
+         .status(500)
+         .send("lo sentimos ha ocurrido un error interno en el servidor");
+
+        }
+
+};
+
+module.exports= {addPlace, getPlaces, updatePlace, deletePlace};
