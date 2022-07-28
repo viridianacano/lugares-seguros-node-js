@@ -1,9 +1,15 @@
 const models= require("../../database/models");
 
+const { fileUpload }= require("../utils/uploadFiles");
+
 const addPlace= async(req,res) => { //modulo agregar lugares
 
     try{
         const { body }=req;
+
+        let image= fileUpload(body.image, "/public");
+        console.log("IMAGEN ES => " + image);
+        image= `http://localhost:5051${image}`;
 
         const address= await models.address.create({
             state: body.state,
@@ -18,6 +24,7 @@ const addPlace= async(req,res) => { //modulo agregar lugares
             name:body.name,
             description: body.description,
             addressId:address.id,
+            image,
 
         });
 
@@ -30,13 +37,24 @@ const addPlace= async(req,res) => { //modulo agregar lugares
     }
 };
 
-const getPlaces= async(req,res) =>{ 
+const getPlaces= async(req, res) =>{ 
     try{
       const places= await models.places.findAll({
+        attributes:{exclude : ["updatedAt"]},
       
-        include: {
+        include: [
+        {
          model:models.address,
+         attributes: { exclude: ["createdAt","updatedAt"]},
+
         },
+
+
+        {
+         model: models.likes,
+         attributes: ["id", "isLike", "userId"],
+        },
+    ],
       });
        
        

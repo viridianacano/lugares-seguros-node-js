@@ -2,6 +2,8 @@ const {addPlace, getPlaces, updatePlace, deletePlace, }= require("../controllers
 
 const { addCommentToPlace, getCommentByPlace, deleteComment }= require("../controllers/comments");
 
+const { addLikeDislike } = require("../controllers/likes");
+
 const {Router} =require("express");
 
 const router=Router();
@@ -18,5 +20,6 @@ router.get("/comments/:placeId", getCommentByPlace);
 
 router.delete("/comments/:commentId",deleteComment);
 
+router.post("/likes",addLikeDislike);
 
 module.exports= { router };
