@@ -4,6 +4,10 @@ const { addCommentToPlace, getCommentByPlace, deleteComment }= require("../contr
 
 const { addLikeDislike } = require("../controllers/likes");
 
+const { registry }= require("../controllers/users");
+
+const { login }= require("../controllers/login");
+
 const {Router} =require("express");
 
 const router=Router();
@@ -21,5 +25,9 @@ router.get("/comments/:placeId", getCommentByPlace);
 router.delete("/comments/:commentId",deleteComment);
 
 router.post("/likes",addLikeDislike);
+
+router.post("/registry",registry);
+
+router.post("/login", login);
 
 module.exports= { router };
