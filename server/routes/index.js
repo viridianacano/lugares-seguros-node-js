@@ -8,11 +8,14 @@ const { registry }= require("../controllers/users");
 
 const { login }= require("../controllers/login");
 
+const {verifyToken}=require("../middlewares/auth");
+
 const {Router} =require("express");
+
 
 const router=Router();
 
-router.route("/places").post(addPlace).get(getPlaces);
+router.route("/places").post(verifyToken, addPlace).get(getPlaces);
 
 router.put("/places/:placeId", updatePlace);
 

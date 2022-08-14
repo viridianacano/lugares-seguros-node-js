@@ -1,5 +1,9 @@
 const bcryptjs= require("bcryptjs");
+const jwt=require("jsonwebtoken");
+
+const {JWT}=require("../../config/config");
 const models=require("../../database/models");
+
 
 const login= async(req,res) => {
     try{
@@ -21,8 +25,12 @@ const login= async(req,res) => {
          return res.status(404).send("La contraseña no coincide");
 
         delete findUser.dataValues.password;
+
+        const token= jwt.sign({ userId: findUser.id }, JWT.SEED, {
+             expiresIn: JWT.EXPIRES,
+        } );
          
-        return res.status(200).send(findUser);
+        return res.status(200).send({ data: findUser, token: token });
 
     } catch(error) {
         return res

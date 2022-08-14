@@ -12,4 +12,8 @@ module.exports={
             DIALECT: "postgres",
 
         },
+        JWT: {
+            SEED: process.env.JWT_SEED,
+            EXPIRES: process.env.JWT_EXPIRES,
+        },
     };

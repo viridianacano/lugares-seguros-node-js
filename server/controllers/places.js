@@ -6,6 +6,7 @@ const addPlace= async(req,res) => { //modulo agregar lugares
 
     try{
         const { body }=req;
+        const userId= req.userId;
 
         let image= fileUpload(body.image, "/public");
         console.log("IMAGEN ES => " + image);
@@ -25,6 +26,7 @@ const addPlace= async(req,res) => { //modulo agregar lugares
             description: body.description,
             addressId:address.id,
             image,
+            userId: userId,
 
         });
 
