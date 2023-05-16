@@ -2,6 +2,7 @@ const { PORT } = require("./config/config");
 const { db } =require("./config/database");
 const {server}=require("./server/index");
 
+try{
 db.authenticate().then(() => {
 
     console.log("Database connected");
@@ -12,4 +13,9 @@ db.authenticate().then(() => {
 
     });
 });
+}catch(error){
+    console.log('That did not go well.')
+      throw error
+}
+
 
