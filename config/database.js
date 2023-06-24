@@ -1,4 +1,4 @@
-const {DB} =require("./config");
+const { DB } =require("./config");
 
 const{Sequelize}= require("sequelize");
 
